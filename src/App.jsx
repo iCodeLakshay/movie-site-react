@@ -39,7 +39,6 @@ const App = () => {
       const endpoint = query
         ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
-
       const response = await fetch(endpoint, API_OPTIONS);
 
       if(!response.ok) {
@@ -53,7 +52,7 @@ const App = () => {
         setMovieList([]);
         return;
       }
-
+      console.log(`Fetched ${data.results.length} movies`);
       setMovieList(data.results || []);
 
       if(query && data.results.length > 0) {
@@ -87,9 +86,9 @@ const App = () => {
 
   return (
     <main>
-      <div className="pattern"/>
+      <div className="fixed w-screen h-screen top-0 left-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(88,28,135,0.15),transparent_40%),radial-gradient(circle_at_0%_50%,rgba(37,99,235,0.15),transparent_50%),radial-gradient(circle_at_100%_50%,rgba(217,70,239,0.15),transparent_50%),radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.15),transparent_40%)] animate-gradient bg-[length:200%_200%]" />
 
-      <div className="wrapper">
+      <div className="wrapper relative z-10">
         <header>
           <img src="./hero-img.png" alt="Hero Banner" />
           <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without the Hassle</h1>
